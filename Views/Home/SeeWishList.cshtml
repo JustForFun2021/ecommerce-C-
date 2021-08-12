@@ -1,0 +1,32 @@
+﻿@using YodiStore.YodiServiceRef;
+@{
+    ViewBag.Title = "SeeWishList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+
+    User user = ViewBag.user;
+    List<WishList> WishList = ViewBag.WishList;
+}
+
+<h1>@user.UserName Wish List</h1>
+<div class="row">
+    @foreach (var item in WishList)
+    {
+        <div id="over" class="col-md-4" style="margin-bottom: 20px;text-align: center;">
+            <a href="#">
+                <img src="~/Imges_Of_Db/@item.Product.Image" width="180" height="180" alt="#" @*class="images img-rounded"*@ />
+
+            </a>
+            <h4 class="text-center">@item.Product.ProductName</h4>
+            <h5 class="text-center">@item.Product.Price $</h5>
+            
+            <a class="btn-circle" href="/Home/surprise?UserId=@item.UserId&&productId=@item.Product.ProductId">
+                <button class="btn btn-info">surprise you're friend</button>
+            </a>
+
+        </div>
+
+    }
+</div>

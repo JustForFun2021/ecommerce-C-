@@ -1,0 +1,198 @@
+﻿
+@{
+    ViewBag.Title = "SellProduct";
+    Layout = "~/Views/Shared/_LayoutPageWithOutMenu.cshtml";
+}
+
+@using YodiStore.Controllers;
+@using YodiStore.YodiServiceRef;
+
+@{
+    var Categorys = ViewBag.Categorys;
+    var SubCategorys = ViewBag.SubCategorys;
+    var Departments = ViewBag.Departments;
+
+    int categor = 0;
+}
+<script src="~/Scripts/sweetalert.min.js"></script>
+<link href="~/Content/sweetalert.css" rel="stylesheet" />
+<link href="~/Content/SellNewProduct3Steps.css" rel="stylesheet" />
+<script src="~/Scripts/SellNewProduct3Steps.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#up").click(function () {
+
+            var o = document.getElementById("img");
+            $.ajax({
+                url: '/Home/UploadFile',
+                method: "get",
+                data: { productImag: $("#image").item },
+                dataType: 'json',
+                success: function (data) {
+                    data.forEach(function (item) {
+                        var op = document.createElement('img');
+                        op.src = "~/Imges_Of_Db/" + data;
+                        o.appendChild(op);
+                    });
+
+                }
+            });
+        });
+        $("#finish").click(function () { swal("Product successfully added !") });
+
+    });
+</script>
+
+
+
+
+<div class="container">
+    <div class="stepwizard">
+        <div class="stepwizard-row setup-panel">
+            <div class="stepwizard-step">
+                <a href="#step-1" type="button" class="btn btn-primary btn-circle">1</a>
+                <p>Step 1</p>
+            </div>
+            <div class="stepwizard-step">
+                <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
+                <p>Step 2</p>
+            </div>
+            <div class="stepwizard-step">
+                <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
+                <p>Step 3</p>
+            </div>
+        </div>
+    </div>
+    <form id="sellForm" role="form" method="post" action="/Home/SellProduct/">
+        <div class="row setup-content" id="step-1">
+            <div class="col-xs-12">
+                <div class="col-md-12">
+
+                    <h3> Sell New Product</h3>
+                    <div class="form-group">
+                        <label class="control-label myfild">Product Name</label>
+                        <input maxlength="100" name="productName" required="required" class="form-control" placeholder="Product Name" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label myfild">Product Image</label>
+                        <input id="image" maxlength="100" type="file" name="productImag" required="required" class="form-control" />
+                        <button id="up" type="submit">Upload</button>
+                        }
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label class="control-label">Category</label>
+                        <select id="selectCategory" name="category" required="required" class="form-control">
+                            <option selected disabled value="none">Select Category</option>
+                            @foreach (var item in Categorys)
+                            {
+                                categor = @item.CategoryId;
+                                <option value="@item.CategoryId">
+                                    @item.CategoryName
+                                </option>
+                            }
+
+                        </select>
+
+
+                        <label class="control-label">SubCategory</label>
+
+                        <select id="selectSubCategory" name="SubCategory" disabled required="required" class="form-control">
+                            <option selected disabled value="none">Select SubCategory</option>
+                            @foreach (var item in SubCategorys)
+                            {
+                                if (item.CategoryId == categor)
+                                {
+                                    <option value="@item.SubCategoryId">
+                                        @item.SubCategoryName
+                                    </option>
+                                }
+
+                            }
+
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Description</label>
+                        <br />
+                        <textarea name="description"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Item Condition</label>
+                        <input type="radio" name="condition" value="New" /> New
+                        <input type="radio" name="condition" value="Used" /> Used
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Brand</label>
+                        <input maxlength="100" name="brand" required="required" class="form-control" placeholder="Brand" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Price</label>
+                        <input maxlength="100" type="number" name="price" required="required" class="form-control" placeholder="Price" />
+                    </div>
+                    <div id="img">
+
+                    </div>
+
+                    <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row setup-content" id="step-2">
+            <div class="col-xs-12">
+                <div class="col-md-12">
+                    <h3>Shipping</h3>
+                    <div class="form-group">
+                        <label class="control-label">Shipping To</label>
+                        <input type="radio" name="shippinTo" value="worldWide" /> WorldWide
+                        <input type="radio" name="shippinTo" value="other" /> Other
+                        <input maxlength="200" name="other" required="required" class="form-control" placeholder="Where you do" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Shipping Cost</label>
+                        <input maxlength="200" type="number" name="shippingCost" required="required" class="form-control" placeholder="$" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Order Business Days</label>
+                        <input maxlength="200" type="number" name="orderBusinessDays" required="required" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Delivery Maximum Day</label>
+                        <input maxlength="200" type="number" name="deliveryMaximumDay" required="required" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Paid By</label>
+                        <input type="radio" name="paidBy" value="visa" />
+                        <img src="~/Image/visa.png" style="height:50px" />
+
+                        <input type="radio" name="paidBy" value="payPal" />
+                        <img src="~/Image/paypal.jpg" style="height:50px" />
+                    </div>
+
+                    <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
+                </div>
+            </div>
+        </div>
+        <div class="row setup-content" id="step-3">
+            <div class="col-xs-12">
+                <div class="col-md-12">
+                    <h3 id="finishM"> Step 3</h3>
+                    <button id="finish" class="btn btn-success btn-lg pull-right" type="submit">Finish!</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+

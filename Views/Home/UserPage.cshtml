@@ -1,0 +1,268 @@
+﻿@{
+    ViewBag.Title = "UserPage";
+    Layout = "~/Views/Shared/_LayoutPageWithOutMenu.cshtml";
+}
+
+@{
+
+    User user = ViewBag.User;
+    List<OrderDetail> orders = ViewBag.BuerOrder;
+}
+
+@using YodiStore.YodiServiceRef;
+
+
+<style>
+    #pri1 {
+        width: 300px;
+        float: left;
+    }
+
+        #pri1 ul li {
+            display: inline;
+        }
+
+    .container {
+        width: 800px;
+    }
+
+    #categorey ul li {
+        display: inline;
+    }
+
+    #inbox {
+        float: right;
+        padding-left: 14px;
+    }
+
+    #Seller1 Buyer1, img {
+        height: 100px;
+        width: 100px;
+    }
+
+    #sell1, #buyer11 {
+        width: 20%;
+    }
+
+    #sell2, #buyer22 {
+        width: 50%;
+    }
+
+    #sell3, #buyer33 {
+        width: 30%;
+    }
+
+    #userhis {
+        overflow: scroll;
+        min-height: 120px;
+        max-height: 260px;
+    }
+
+    #input-6a {
+    }
+</style>
+<script>
+
+
+    $(document).ready(function () {
+
+
+        $('ul:first-child')
+
+
+
+        $("#txt111").keyup(function () {
+
+            var oo = document.getElementById("datap");
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                data: { term: $("#txt111").val(), UserID: @user.UserId },
+                contentType: 'application/json',
+                url: '@Url.Action("SearchSellerProducts", "Home")',
+
+                success: function (result) {
+
+                    $('#datap').html('');
+
+                    for(var i=0;i<result.length;i++){
+                        $('#datap').append('<option value="'+result[i]+'"></option>');
+                    }
+                    //oo.textContent  = "";
+
+                    //for (var i = 0; i < result.length; i++) {
+                    //    var op = document.createElement('option');
+                    //    op.value = result[i];
+                    //    oo.appendChild(op);
+
+
+                }
+
+
+            });
+        });
+
+
+
+
+        $.ajax({
+
+            type: 'GET',
+            dataType: 'json',
+            data: { Id: @user.UserId },
+            contentType: 'application/json',
+            url: '@Url.Action("UserProctsCategorey", "Home")',
+            success: function (result) {
+                var html = ""
+                for (var i = 0; i < result.length; i++) {
+
+                    html += "<li class=" + 'categoryname' + "><a >" + result[i] + "</a></li>";
+                };
+                $("#categorey").html(html);
+            }
+
+        });
+
+
+    });
+
+    $(document).on("click", ".categoryname", function () {
+
+        $(".categoryname").css({ color: "blue" });
+        var dd = $(this).children("a").html();
+        $(this).css("color", "black");
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            data: { userId: @user.UserId, categoreyName: dd },
+            contentType: 'application/json',
+            url: '@Url.Action("UserProducts", "Home")',
+            success: function (result) {
+                var html = "";
+                for (var i = 0; i < result.length; i++) {
+
+                    html += ' <a href="/Home/EditProduct?productId='+ result[i].ProductId+'"> <section style="float:left; padding-right: 10px;width: 248px; padding-bottom: 25px"><img src=/Imges_Of_Db/' + result[i].Image + ' width="200" height="200" alt="#" class="images img-rounded" />'
+                  + '<p>' + result[i].ProductName + '</p>'
+                  + '<p>Price:  ' + result[i].Price + '$</p> <p>UnitInStock:'+ result[i].UnitInStock+'</p> '
+                  +'<div class="star-rating rating-xs rating-active"><div class="clear-rating clear-rating-active" title="Clear"><i class="glyphicon glyphicon-minus-sign"></i></div><div class="rating-container rating-gly-star" data-content=""><div class="rating-stars" data-content="" style="width: 40%;"></div><input id="input-6a" class="rating form-control hide" value="'+result[i].Retad+'" data-min="0" data-max="5" data-step="0.5" data-size="xs"></div><div class="caption"><span class="label label-warning">Two Stars</span></div></div></section> '
+
+
+                }
+                $("#ee").html(html);
+            }
+        });
+
+    });
+
+</script>
+<div>
+    <div class="container">
+
+
+
+        <<div class="row">
+            <div class="col-md-3" style="margin-right:60PX">
+                @if (user.Image == null)
+                {
+                    <div style="width:22.333333%">
+                        <img class="lib-img-show" src="https://cdn4.iconfinder.com/data/icons/meBaze-Freebies/512/add-user.png" style="height:150px; width:200px " />
+                        <form action="/Home/uploadUserImage?userID=@user.UserId" method="post" enctype="multipart/form-data">
+                            <input name="userImag" type="file" multiple />
+                            <input id="updateuserimg" type="submit" value="Save" />
+                        </form>
+                    </div>
+                }
+                @if (user.Image != null)
+                {
+                    <div style="width:22.333333%">
+                        <img class="lib-img-show" src='~/Imges_Of_Db/@user.Image' width="200px" style=" width:200px; height:150px; " />
+                        <form action="/Home/uploadUserImage?userID=@user.UserId" method="post" enctype="multipart/form-data">
+                            <input name="userImag" type="file" multiple />
+                            <input id="updateuserimg" type="submit" value="Save" />
+                        </form>
+                    </div>
+                }
+
+
+
+            </div>
+
+            <div class="col-md-7">
+
+                <ul id="gg">
+                    <li style="margin-right:190px">
+                        <a href="/Home/UserPage?useID=@user.UserId">@user.UserName</a>
+                    </li>
+                    <li>
+                        <a href="/Home/Contact">Contact</a>
+                    </li>
+                </ul>
+                <br />
+
+                <p>@user.Description</p>
+
+
+            </div>
+
+            <br />
+
+        </div>
+
+
+
+        <br />
+
+    </div>
+
+    <hr style="width: 500px;" />
+
+    <br />
+    <br />
+    <br />
+
+
+    <br />
+    <br />
+
+    @if (ViewBag.dff != null)
+    {
+        <form style="margin-bottom: 42px;">
+            My Products : <input style="margin-left: 17px;width:300px " max="10" list="datap" id="txt111" name="term" placeholder="Search your products" />
+            <datalist style="display:normal" id="datap"></datalist>
+        </form>
+    }
+
+    <ul id="categorey" class="nav nav-pills"></ul>
+
+    <div style="width:68px" class="row">
+        <br />
+        <div id="ee" style="width: 1040px;;" class="col-md-4">
+
+            @{
+                if (ViewBag.dff != null)
+                {
+
+                    foreach (Product item in ViewBag.dff)
+                    {
+                        <a href="/Home/EditProduct?productId=@item.ProductId">
+                            <section style="float:left; padding-right: 10px;width: 248px; padding-bottom: 25px">
+                                <img src='~/Imges_Of_Db/@item.Image' width="200" height="200" class="images img-rounded" />
+                                <p>@item.ProductName</p>
+                                <p>@item.Price $</p>
+                                <p>UnitInStock: @item.UnitInStock</p>
+                                <input disabled id="input-6a" class="rating form-control hide" value="@item.Retad" data-min="0" data-max="5" data-step="0.5" data-size="xs">
+
+                            </section>
+                        </a>
+
+
+                    }
+                }
+            }
+        </div>
+
+
+    </div>
+
+
+</div>

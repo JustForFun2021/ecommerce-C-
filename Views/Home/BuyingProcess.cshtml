@@ -1,0 +1,69 @@
+﻿@using YodiStore.YodiServiceRef;
+@{
+    ViewBag.Title = "BuyingProcess";
+    Layout = "~/Views/Shared/_LayoutPageWithOutMenu.cshtml";
+}
+
+
+@{
+    List<OrderDetail> or = ViewBag.OrderDetail;
+    User user = ViewBag.User;
+}
+
+<h2>YourDetails</h2>
+
+<form method="post">
+    First Name:<input type="text" name="FirstName" />
+
+    Last Name:<input type="text" name="LastName" />
+    <br />
+    <br />
+    country:<input type="text" name="Country" />
+
+    city:<input type="text" name="City" />
+    <br />
+    <br />
+
+    street:<input type="text" name="Street" />
+    <br />
+    <br />
+
+    zip code:<input type="text" name="ZipCode" />
+    <br />
+    <br />
+
+    Notes:<textarea name="Notes"></textarea>
+    <br />
+    <br />
+
+    Pay With:<input type="checkbox" name="PayPal" /> <img src="~/Imges_Of_Db/paypal.jpg" />  <input type="checkbox" name="MasterCard" /> <img src="~/Imges_Of_Db/visa.png" />
+
+    <br />
+    <br />
+    <br />
+
+    <input type="submit" name="BuyNow" value="BuyNow" />
+    <br />
+
+    @foreach (var item in or)
+    {
+        if (item.Order.OrderDate == null && item.Order.UserId == user.UserId)
+        {
+            <div class="col-lg-4">
+                <img src="~/Imges_Of_Db/@item.Product.Image" width="180" height="180" />
+                <br />
+                <h3 class="text-left">@item.Product.ProductName</h3>
+                <input hidden name="OrderId" value="@item.OrderId" />
+                <h4>Quantity: @item.Quantity</h4>
+                <br />
+                @*<p>@item.Product.Shipper.ShippingCost</p>*@
+                <br />
+                <h6>Price:</h6><h5> @item.Product.Price $</h5>
+                <hr />
+            </div>
+        }
+    }
+</form>
+
+<h4><span style="color:lightgreen;width:260PX; float:left;margin-right: 173px;">@ViewBag.Buying</span></h4>
+

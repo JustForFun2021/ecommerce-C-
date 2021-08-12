@@ -1,0 +1,12 @@
+C:\Users\orel\Desktop\פרוייקט גמר\IService\IService\bin\Debug\IService.dll
+C:\Users\orel\Desktop\פרוייקט גמר\IService\IService\bin\Debug\IService.pdb
+C:\Users\orel\Desktop\פרוייקט גמר\IService\IService\obj\Debug\IService.dll
+C:\Users\orel\Desktop\פרוייקט גמר\IService\IService\obj\Debug\IService.pdb
+C:\Users\orel\Desktop\פרוייקט גמר\פרוייקט גמר 2\IService\IService\bin\Debug\IService.dll
+C:\Users\orel\Desktop\פרוייקט גמר\פרוייקט גמר 2\IService\IService\bin\Debug\IService.pdb
+C:\Users\orel\Desktop\פרוייקט גמר\פרוייקט גמר 2\IService\IService\obj\Debug\IService.dll
+C:\Users\orel\Desktop\פרוייקט גמר\פרוייקט גמר 2\IService\IService\obj\Debug\IService.pdb
+C:\Users\orel\Desktop\פרוייקט גמר\פרוייקט גמר 3\IService\IService\bin\Debug\IService.dll
+C:\Users\orel\Desktop\פרוייקט גמר\פרוייקט גמר 3\IService\IService\bin\Debug\IService.pdb
+C:\Users\orel\Desktop\פרוייקט גמר\פרוייקט גמר 3\IService\IService\obj\Debug\IService.dll
+C:\Users\orel\Desktop\פרוייקט גמר\פרוייקט גמר 3\IService\IService\obj\Debug\IService.pdb

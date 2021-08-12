@@ -1,0 +1,124 @@
+﻿
+@{
+    ViewBag.Title = "EditProduct";
+    Layout = "~/Views/Shared/_LayoutPageWithOutMenu.cshtml";
+}
+
+@using YodiStore.YodiServiceRef;
+@{
+    ViewBag.Title = "EditProduct";
+    List<Category> category = ViewBag.Categorys;
+    List<SubCategory> subCategory = ViewBag.SubCategorys;
+    Product product = ViewBag.Product;
+
+
+}
+<style>
+    input {
+        margin-bottom: 21px;
+        padding: 13px;
+        width: 292px;
+        border-radius: 10px;
+    }
+
+    select {
+        margin-bottom: 21px;
+        padding: 13px;
+        width: 292px;
+        border-radius: 10px;
+    }
+
+    label {
+        width: 130px;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+
+    $("#cat").click( function () {
+    $.ajax({
+        type: 'GET',
+        dataType: 'json',
+        data: { categorId: $("#cat").val() },
+        contentType: 'application/json',
+        url: '@Url.Action("GetSubCategoryByCategory", "Home")',
+
+        success: function (result) {
+
+
+            $('#subcat').html("");
+
+            for(var i=0;i<result.length;i++){
+                $('#subcat').append('<option value="' + result[i].SubCategoryId + '">' + result[i].SubCategoryName + '</option>');
+            }
+        }
+
+    });
+    });
+    });
+
+</script>
+
+
+<div class="row">
+    <div class="col-md-6">
+        <form action="/Home/EditProduct" method="post" enctype="multipart/form-data" role="form">
+            <h2>EditProduct</h2>
+            <label>Category</label>
+            <select required id="cat" name="categoryId">
+                <option value="@product.CategoryId">@product.Category.CategoryName</option>
+                @foreach (var item in category)
+                {
+                    <option value="@item.CategoryId">@item.CategoryName</option>
+                }
+            </select>
+            <br />
+            <label>SubCategory</label>
+            <select required id="subcat" name="subCategoryId">
+                <option value="@product.SubCatgoreyId">@product.SubCatgorey.SubCategoryName</option>
+                @foreach (var item in subCategory)
+                {
+                    if (item.CategoryId == product.CategoryId)
+                    {
+                        <option value="@item.SubCategoryId">@item.SubCategoryName</option>
+                    }
+
+                }
+            </select>
+            <br />
+
+            <input required hidden="hidden" value="@product.UserId" name="productId" />
+            <label>Brand</label>
+            <input required value="@product.Brand" name="brand" />
+            <br />
+            <label>Price</label>
+            <input required value="@product.Price" type="number" name="price" />
+            <br />
+            <label>Discount</label>
+            <input required value="@product.Discount" type="number" name="discount" />
+            <br />
+            <label>ProductCondetion</label>
+            <input required value="@product.ProductCondetion" name="condition" />
+            <br />
+            <label>ProductName</label>
+            <input required value="@product.ProductName" name="name" />
+            <br />
+            <label>UnitInStock</label>
+            <input required value="@product.UnitInStock" type="number" name="unitInStock" />
+            <br />
+            <label>description</label>
+            <textarea required name="description" /></textarea>
+            <br />
+            <input name="file" type="file" multiple />
+            <input type="submit" value="Save" />
+
+    </div>
+    <div class="col-md-4">
+
+        <img style="width: 568px; margin-top: 58px;" src="~/Imges_Of_Db/@product.Image" />
+
+
+    </div>
+    </form>
+</div>
+

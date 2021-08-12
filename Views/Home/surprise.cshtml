@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "surprise";
+    Layout = "~/Views/Shared/_LayoutPageWithOutMenu.cshtml";
+}
+
+@using YodiStore.YodiServiceRef;
+
+@{
+    //List<OrderDetail> or = ViewBag.OrderDetail;
+    //User user = ViewBag.User;
+
+
+    User user = ViewBag.User;
+        Product product = ViewBag.Product;
+    Order order = ViewBag.Order;
+    //OrderDetail orderDtails = ViewBag.OrderDtail;
+}
+
+<h2>YourDetails</h2>
+
+<form method="post">
+    First Name:<input type="text" name="FirstName" value="@user.FirstName" />
+
+    Last Name:<input type="text" name="LastName" value="@user.LastName" />
+    <br />
+    <br />
+    country:<input type="text" name="Country" value="@user.Country" />
+
+    city:<input type="text" name="City" value="@user.City" />
+    <br />
+    <br />
+
+    street:<input type="text" name="Street" value="@user.addresses" />
+    <br />
+    <br />
+
+    zip code:<input type="text" name="ZipCode" value="@user.PostalCode" />
+    <br />
+    <br />
+
+    Notes:<textarea name="Notes"></textarea>
+    <br />
+    <br />
+
+    Pay With:<input type="checkbox" name="PayPal" /> <img src="~/Imges_Of_Db/paypal.jpg" />  <input type="checkbox" name="MasterCard" /> <img src="~/Imges_Of_Db/visa.png" />
+
+    <br />
+    <br />
+    <br />
+
+    <input type="submit" name="BuyNow" value="BuyNow" />
+    <br />
+
+    <div class="col-lg-4">
+        <img src="~/Imges_Of_Db/@product.Image" width="180" height="180" />
+        <br />
+        @*<h3 class="text-left">@product.ProductName</h3>*@
+        <input hidden name="OrderId" value="@order.OrderId" />
+        <h4>Quantity:</h4>
+        <input value="1" />
+        <br />
+        @*<p>@item.Product.Shipper.ShippingCost</p>*@
+        <br />
+        <h6>Price:</h6><h5> @product.Price $</h5>
+        <hr />
+    </div>
+
+
+</form>
+
+<h4><span style="color:lightgreen;width:260PX; float:left;margin-right: 173px;">@ViewBag.Buying</span></h4>
+
+
+

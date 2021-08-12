@@ -1,0 +1,107 @@
+﻿
+@{
+    ViewBag.Title = "CurrentCart";
+    Layout = "~/Views/Shared/_LayoutPageWithOutMenu.cshtml";
+}
+
+@using YodiStore.Controllers;
+@using YodiStore.YodiServiceRef;
+@{
+    YodiServiceClient c = new YodiServiceClient();
+    User user = ViewBag.User;
+    List<OrderDetail> OrderDetails = ViewBag.OrderDetails;
+    decimal total = 0;
+}
+<script>
+    $(document).ready(function () {
+
+        $("#remove").click(function () {
+            var form = $("form#myForm2");
+            form.attr("action", "@Url.Action("RemoveProduct", "Home")");
+            form.attr("method", "post")
+            form.submit();
+        });
+    });
+
+</script>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-md-10 col-md-offset-1">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th class="text-center">Price</th>
+                        <th class="text-center">Total</th>
+                        <th> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in c.GetOrderDetails())
+                    {
+                        if (item.Order.OrderDate == null && item.Order.UserId == user.UserId)
+                        {
+                            total += item.Quantity * item.Product.Price;
+
+                            <tr>
+                                <td class="col-sm-8 col-md-6">
+                                    <div class="media">
+                                        <a class="thumbnail pull-left" href="/Home/SingleProduct?productId=@item.ProductId"> <img class="media-object" src="~/Imges_Of_Db/@item.Product.Image" style="width: 72px; height: 72px;"> </a>
+                                        <div class="media-body">
+                                            <h4 class="media-heading"><a href="/Home/SingleProduct?productId=@item.ProductId"> @item.Product.ProductName</a></h4>
+                                            <h5 class="media-heading"> by <strong> @item.Product.Brand</strong></h5>
+                                            <span>Status: </span><span class="text-success"><strong>In Stock</strong></span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="col-sm-1 col-md-1" style="text-align: center">
+
+                                    <input type="email" class="form-control" id="editQuantity" value="@item.Quantity" />
+                                </td>
+                                <td hidden id="id">@item.OrderDetailId</td>
+                                <td id="price" class="col-sm-1 col-md-1 text-center"><strong>$@item.Product.Price</strong></td>
+                                <td id="sum" class="col-sm-1 col-md-1 text-center"><strong>$@(@item.Product.Price * item.Quantity)</strong></td>
+                                <td class="col-sm-1 col-md-1">
+                                    <form id="myForm2">
+                                        <input hidden name="OrderDetailId" value="@item.OrderDetailId" />
+                                        <button id="remove" type="button" class="btn btn-danger">
+                                            <span class="glyphicon glyphicon-remove"></span>  Remove
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    }
+
+                    <tr>
+                        <td>   </td>
+                        <td>   </td>
+                        <td>   </td>
+                        <td><h3>Total</h3></td>
+                        <td class="text-right"><h3><strong>$@total</strong></h3></td>
+                    </tr>
+                    <tr>
+                        <td>   </td>
+                        <td>   </td>
+                        <td>   </td>
+                        <td>
+
+                            <button type="button" class="btn btn-default">
+                                <span class="glyphicon glyphicon-shopping-cart"></span> Continue Shopping
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-success">
+                                Checkout <span class="glyphicon glyphicon-play"></span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

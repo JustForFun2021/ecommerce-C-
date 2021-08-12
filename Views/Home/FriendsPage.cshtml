@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "FriendsPage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using YodiStore.YodiServiceRef;
+@using YodiStore.Controllers;
+
+@{
+    List<User> friends = ViewBag.Friends;
+
+}
+
+<h4><span style="color:red;width:260PX">@ViewBag.Message</span></h4>
+<div class="row">
+    @foreach (var item in friends)
+    {
+        <div id="over" class="col-md-4">
+            <a href="#">
+                <img src="~/Imges_Of_Db/@item.Image" width="180" height="180" alt="#" @*class="images img-rounded"*@ />
+
+            </a>
+            <h4 class="text-center">@item.FirstName</h4>
+
+            <a class="btn-circle" href="/Home/SeeWishList?UserId=@item.UserId">
+                See Wish List @*<button type="submit" class="btn btn-success"></button>*@
+            </a>
+
+        </div>
+
+    }
+</div>
+
+
+
+
+
+
+
+
+
+
+

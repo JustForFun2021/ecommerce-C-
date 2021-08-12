@@ -1,0 +1,35 @@
+﻿@model IEnumerable<YodiStore.YodiServiceRef.Product>
+
+@{
+    ViewBag.Title = "SubCategory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var CategoryName = ViewBag.CategoryName;
+    var subCategoryName = ViewBag.subCategoryName;
+    var categoryId = ViewBag.CategoryId;
+}
+
+<h4><a href="/Home/Index">Home</a> > <a href="/Home/Categry?categoryId=@categoryId[0]"> @CategoryName</a> > <a href="#">@subCategoryName</a></h4>
+
+
+<div class="row">
+
+    <br />
+
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4">
+            <a href="/Home/SingleProduct?productId=@item.ProductId">
+                <img src="~/Imges_Of_Db/@Html.DisplayFor(Modelproduct => item.Image)" width="180" height="180" alt="#" @*class="images img-rounded"*@ />
+            </a>
+            <h5>@Html.DisplayFor(Modelproduct => item.Description)</h5>
+            <h5>Price:  @Html.DisplayFor(Modelproduct => item.Price) $</h5>
+            <a class="btn-circle" href="/Home/SingleProduct?productId=@item.ProductId">
+                See more @*<button type="submit" class="btn btn-default"></button>*@
+            </a>
+        </div>
+    }
+</div>
+

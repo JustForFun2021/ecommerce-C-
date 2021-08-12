@@ -1,0 +1,267 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutPageWithOutMenu.cshtml";
+}
+
+
+<link href="~/Content/Contact.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<link href="~/Content/Contact2.css" rel="stylesheet" />
+
+
+<style>
+    #contact-form .form-group label.error {
+        color: #FB3A3A;
+        display: inline-block;
+        margin: 0px 0 0px 0px;
+        padding: 0;
+        text-align: left;
+        width: 220px;
+    }
+</style>
+
+
+<script>
+    (function ($, W, D) {
+        var JQUERY4U = {};
+
+        JQUERY4U.UTIL =
+        {
+            setupFormValidation: function () {
+
+                $("#contact-form").validate({
+                    rules: {
+                        Name: "required",
+                        Message: "required",
+                        email: "required",
+
+                        Name: {
+                            required: true,
+                            minlength: 2
+                        },
+                        Message: {
+                            required: true,
+                            minlength: 5
+                        },
+
+                        email: {
+                            required: true,
+                            email: true
+                        },
+
+
+
+                    },
+
+                    messages: {
+
+                        email: "Please enter your email address",
+
+                        Name: {
+                            required: "Please ypur name",
+                            minlength: "Your name must be at least 15 characters long"
+                        },
+                        Message: "Please enter Message",
+                        agree: "Your message must be at least 140 characters long"
+                    },
+                    submitHandler: function (form) {
+                        form.submit();
+                    }
+                });
+            }
+        }
+        $(D).ready(function ($) {
+            JQUERY4U.UTIL.setupFormValidation();
+        });
+
+    })(jQuery, window, document);
+</script>
+
+
+
+
+
+
+
+<div class="container">
+    <div class="row">
+        <form role="form" id="contact-form" class="contact-form" method="post">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="text" class="form-control" required="required" name="Name" id="Name" placeholder="Name">
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="email" class="form-control" required="required" name="email" autocomplete="off" id="email" placeholder="E-mail">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <textarea class="form-control textarea" required="required" rows="3" cols="90" name="Message" id="Message" placeholder="Message"></textarea>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <br />
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="submit" style="margin-right:600px;" id="sendEmail" class="btn main-btn pull-right">Send a message</button>
+                    <br />
+
+                    <br />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<br />
+<br />
+<div class="row">
+    <div class="col-xs-12 col-sm-offset-3 col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading c-list">
+                <span class="title">Contacts</span>
+                <ul class="pull-right c-controls">
+                    @*<li><a href="#cant-do-all-the-work-for-you" data-toggle="tooltip" data-placement="top" title="Add Contact"><i class="glyphicon glyphicon-plus"></i></a></li>*@
+                    <li><a href="#" class="hide-search" data-command="toggle-search" data-toggle="tooltip" data-placement="top" title="Toggle Search"><i class="fa fa-ellipsis-v"></i></a></li>
+                </ul>
+            </div>
+
+            <div class="row" style="display: none;">
+                <div class="col-xs-12">
+                    <div class="input-group c-search">
+                        <input type="text" class="form-control" id="contact-list-search">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search text-muted"></span></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <ul class="list-group" id="contact-list">
+                <li class="list-group-item">
+                    <div class="col-xs-12 col-sm-3">
+                        @*<img src="~/ContactImage/OrelAzaria.jpg" class="img-responsive img-circle" />*@
+                        <img src="~/ContactImage/Orel21.jpg" alt="Orel Azaria" class="img-responsive img-circle" />
+                    </div>
+                    <div class="col-xs-12 col-sm-9">
+                        <span class="name">Orel Azaria</span><br />
+                        <span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title="Rehovot"></span>
+                        <span class="visible-xs"> <span class="text-muted">Rehovot</span><br /></span>
+                        <span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title="(+972) 545857388"></span>
+                        <span class="visible-xs"> <span class="text-muted">(+972) 545857388</span><br /></span>
+                        <span class="fa fa-comments text-muted c-info" data-toggle="tooltip" title="orelazaria@gmail.com"></span>
+                        <span class="visible-xs"> <span class="text-muted">orelazaria@gmail.com</span><br /></span>
+                    </div>
+                    <div class="clearfix"></div>
+                </li>
+                <li class="list-group-item">
+                    <div class="col-xs-12 col-sm-3">
+
+                        @*<img src="~/ContactImage/ilanitelsa.jpg" alt="Ilanit Elsa" class="img-responsive img-circle" />*@
+                        <img src="~/ContactImage/ilamitelsa2.jpg" alt="Ilanit Elsa" class="img-responsive img-circle" height="135.953px" />
+                    </div>
+                    <div class="col-xs-12 col-sm-9">
+                        <span class="name">Ilanit Elsa</span><br />
+                        <span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title="Kfar Saba"></span>
+                        <span class="visible-xs"> <span class="text-muted">Kfar Saba</span><br /></span>
+                        <span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title="(+972) 545675061"></span>
+                        <span class="visible-xs"> <span class="text-muted">(+972) 545675061</span><br /></span>
+                        <span class="fa fa-comments text-muted c-info" data-toggle="tooltip" title="ilanitelsa1989@gmail.com"></span>
+                        <span class="visible-xs"> <span class="text-muted">ilanitelsa1989@gmail.com</span><br /></span>
+                    </div>
+                    <div class="clearfix"></div>
+                </li>
+                <li class="list-group-item">
+                    <div class="col-xs-12 col-sm-3">
+
+                        <img src="~/ContactImage/Kobi.jpg" alt="Kodi Mashasha" class="img-responsive img-circle" />
+                    </div>
+                    <div class="col-xs-12 col-sm-9">
+                        <span class="name">Kodi Mashasha</span><br />
+                        <span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title="Ramla"></span>
+                        <span class="visible-xs"> <span class="text-muted">Ramla</span><br /></span>
+                        <span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title="(477) 792-2822"></span>
+                        <span class="visible-xs"> <span class="text-muted">(477) 792-2822</span><br /></span>
+                        <span class="fa fa-comments text-muted c-info" data-toggle="tooltip" title="jean.myers@example.com"></span>
+                        <span class="visible-xs"> <span class="text-muted">Kodi Mashasha@example.com</span><br /></span>
+                    </div>
+                    <div class="clearfix"></div>
+                </li>
+                <li class="list-group-item">
+                    <div class="col-xs-12 col-sm-3">
+
+                        <img src="~/ContactImage/Daniel.jpg" alt="Daniel Malasa" class="img-responsive img-circle" />
+                    </div>
+                    <div class="col-xs-12 col-sm-9">
+                        <span class="name">Daniel Malasa</span><br />
+                        <span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title="Rehovot"></span>
+                        <span class="visible-xs"> <span class="text-muted">Rehovot</span><br /></span>
+                        <span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title="(522) 991-3367"></span>
+                        <span class="visible-xs"> <span class="text-muted">(522) 991-3367</span><br /></span>
+                        <span class="fa fa-comments text-muted c-info" data-toggle="tooltip" title="todd.shelton@example.com"></span>
+                        <span class="visible-xs"> <span class="text-muted">Daniel Malasa@example.com</span><br /></span>
+                    </div>
+                    <div class="clearfix"></div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+@*<script>
+        $('#contact-form').bootstrapValidator({
+            //        live: 'disabled',
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                Name: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The Name is required and cannot be empty'
+                        }
+                    }
+                },
+                email: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The email address is required'
+                        },
+                        emailAddress: {
+                            message: 'The email address is not valid'
+                        }
+                    }
+                },
+                Message: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The Message is required and cannot be empty'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+    <script>
+
+    </script>*@

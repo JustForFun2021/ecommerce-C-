@@ -1,0 +1,132 @@
+﻿
+@{
+    ViewBag.Title = "SingleProduct";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using YodiStore.YodiServiceRef;
+
+@{
+   
+    Product product = ViewBag.Product;
+}
+
+
+<h4 style="margin-bottom: 60px;"><a href="/Home/Index">Home</a> > <a href="/Home/Categry?categoryId=@product.CategoryId">@product.Category.CategoryName</a> > <a href="/Home/SubCategory?subCategoryId=@product.SubCatgoreyId">@product.SubCatgorey.SubCategoryName</a> > <a href="#">@product.ProductName</a></h4>
+
+
+<style>
+    #proimg {
+        float: left;
+        width: 200px;
+    }
+
+    #warper1 {
+        margin-bottom: 200px;
+        width: 1072px;
+    }
+
+    #productdiv {
+        float: left;
+        WIDTH: 438PX;
+    }
+
+    #prul li {
+        display: inline;
+        float: left;
+        list-style: none;
+    }
+</style>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        const a = document.getElementById("price1").value;
+        $("#quantity1").click(function () {
+            console.log("Dd");
+            var b = document.getElementById("quantity1").value;
+
+            document.getElementById("price1").value = a * b;
+        })
+
+        $("#BuyingProcess").click(function () {
+            var form = $("form#myForm");
+            form.attr("action", "@Url.Action("BuyingProcess", "Home")");
+            form.attr("method", "post")
+            form.submit();
+        });
+
+        $("#Addtocart").click(function () {
+            var form = $("form#myForm");
+            form.attr("action", "@Url.Action("Addtocart", "Home")");
+            form.attr("method", "post")
+            form.submit();
+        });
+
+        $("#WishList").click(function () {
+            var form = $("form#myForm");
+            form.attr("action", "@Url.Action("AddToWishList", "Home")");
+            form.attr("method", "post")
+            form.submit();
+        });
+
+
+    });
+
+</script>
+
+
+<div class="row">
+    <div class="col-md-4">
+        <img width="300" height="300" src="~/Imges_Of_Db/@product.Image" />
+    </div>
+    <div class="col-md-4">
+        <p style="  font-size: 21px;">@product.ProductName</p>
+        <input disabled id="input-6a" class="rating form-control hide" value="@product.Retad" data-min="0" data-max="5" data-step="0.5" data-size="xs">
+
+        <ul style=" padding-left: 1px;" id="prul">
+            <li>Condition: <b>@product.ProductCondetion</b></li>
+            <li style="padding-left:20px">Brand:<b> @product.Brand</b></li>
+        </ul>
+        <br />
+
+        <form id="myForm">
+            Quantity: <input id="quantity1" style="width:45px" type="number" min="1" max="10" name="quantity" /><br /><br />
+            <input hidden="hidden" type="text" value="@product.ProductId" name="productId" />
+            Price: <input style="width:70px; font-weight:bold" disabled id="price1" value="@product.Price"></>$<br /><br />
+            <button id="BuyingProcess" class="btn btn-success">Buy</button>
+            <button id="Addtocart" class="btn btn-warning">Add</button>
+            <button id="WishList" class="btn btn"style="background-color:#35C3FF;"><span style="color:white;">Add To Wish List</span></button>
+        </form>
+
+
+
+
+        <div>
+            <p style="width:260PX;">
+                @product.Description
+            </p>
+            <h4><span style="color:lightgreen;width:260PX">@ViewBag.Added</span></h4>
+        </div>
+
+
+
+        <input hidden="hidden" value="@product.UserId" />
+
+
+
+    </div>
+    <div class="col-md-4">
+        <section style="border:solid; border-radius:20px; padding:5px">
+            <a href="/Home/UserPage?useId=@product.UserId">Seller : @product.User.UserName</a>
+
+            <p>@product.User.Description</p>
+        </section>
+        <h3>shipping </h3>
+        <p>Cost: @product.Shipper.ShippingCost $</p>
+        <p>Deliver Time: @product.Shipper.MaxDeliveryDays</p>
+        <p>To: @product.Shipper.ShippingTo</p>
+
+
+    </div>
+</div>
